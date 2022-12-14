@@ -42,7 +42,7 @@ export const log = (str, { prefix = '', details = '', logFileName = './app.log',
   const logPath = path.join(process.cwd(), logFileName)
   const time = new Date().toLocaleString()
   unlinkFileIfSizeOver(logPath, 10)
-  fs.appendFileSync(logPath, `[${time}] ${prefix}${JSON.stringify(`${str}${details && `|${details}`}`)}\n`)
+  fs.appendFileSync(logPath, `[${time}] ${prefix}${JSON.stringify(`${str}${details ? `|${details}` : ''}`)}\n`)
   if (!skip) console.log(`[${time}] ${prefix}${str}`)
 }
 

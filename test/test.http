@@ -27,8 +27,8 @@ Content-Type: application/json
         "totalPrice": "6,000"
       },
       "hardwareType": "USB",
-      "vid": "0x1fc9",
-      "pid": "0x2016"
+      "vid": "0x0002",
+      "pid": "0x0002"
     }
   ]
 }
@@ -82,8 +82,8 @@ Content-Type: application/json
         { "attendant": "captains_terrace3", "catalogId": "0GbI000000spz9KuPJ32", "createdDate": "2022-11-09 21:04:00", "food": { "modifier": "少量", "name": "フライドポテト", "num": "3" }, "isDelivery": false, "remark": "塩を入れすぎない", "statementID": "3", "takeawayNo": "3" }
       ],
       "hardwareType": "USB",
-      "vid": "0x1fc9",
-      "pid": "0x2016"
+      "vid": "0x0002",
+      "pid": "0x0002"
     }
   ]
 }
@@ -124,8 +124,8 @@ Content-Type: application/json
         "tableCode": "A1"
       },
       "hardwareType": "USB",
-      "vid": "0x1fc9",
-      "pid": "0x2016"
+      "vid": "0x0002",
+      "pid": "0x0002"
     }
   ]
 }
@@ -182,8 +182,8 @@ Content-Type: application/json
         "totalTakeawayOrders": 0
       },
       "hardwareType": "USB",
-      "vid": "0x1fc9",
-      "pid": "0x2016"
+      "vid": "0x0002",
+      "pid": "0x0002"
     }
   ]
 }
@@ -225,3 +225,139 @@ Content-Type: application/json
 }
 
 ###
+
+# @name DeliveryPrintToUSB
+POST http://localhost:2000/print
+Content-Type: application/json
+
+{
+  "toPrintBillContent": [
+    {
+      "customerContent": {
+        "address": "Huawei Technologies Rep. Office Hq,Mugumo Road,Masiwa,Kilimani,Nairobi",
+        "city": "0Ge8000000k4Zbx1JwY4",
+        "createdDate": "2022-12-14 14:59:33",
+        "deliveryFee": "1",
+        "foodList": [
+          {
+            "modifier": "",
+            "name": "Kachumbari",
+            "num": "2",
+            "price": "100"
+          },
+          {
+            "modifier": "",
+            "name": "Monday Lunch",
+            "num": "2",
+            "price": "10"
+          },
+          {
+            "modifier": "",
+            "name": "Fish and Chips& 薯条",
+            "num": "1",
+            "price": "1"
+          },
+          {
+            "modifier": "",
+            "name": "Crispy Chicken Tenders",
+            "num": "1",
+            "price": "800"
+          },
+          {
+            "modifier": "sauce tartar",
+            "name": "Fish Goujons",
+            "num": "2",
+            "price": "800"
+          }
+        ],
+        "isDelivery": true,
+        "province": "0Ge8000000k4ZYVxfELg",
+        "rartingUrl": "https://appcube.hwipg.com/magno/render/ScanOrder__ScanOrder_0000000000rZLlUaP9OL/rating?orderNo=671671019173976444",
+        "receiverAdress": "Somerset Westview Nairobi,Kilimani,Nairobi",
+        "receiverName": "Stephen Tseng",
+        "receiverPhone": "254748930129",
+        "remark": "",
+        "shopName": "Captains",
+        "statementID": "671671019173976444",
+        "totalPrice": "2622"
+      },
+      "hardwareType": "USB",
+      "pid": "0x0002",
+      "vid": "0x0002"
+    }
+  ],
+  "toPrintOrderContent": [
+    {
+      "chefContent": [
+        {
+          "createdDate": "2022-12-14 14:59:33",
+          "food": {
+            "modifier": "",
+            "name": "Kachumbari",
+            "num": "2"
+          },
+          "isDelivery": true,
+          "receiverName": "Stephen Tseng",
+          "remark": "",
+          "statementID": "671671019173976444",
+          "takeawayNo": null
+        },
+        {
+          "createdDate": "2022-12-14 14:59:33",
+          "food": {
+            "modifier": "",
+            "name": "Monday Lunch",
+            "num": "2"
+          },
+          "isDelivery": true,
+          "receiverName": "Stephen Tseng",
+          "remark": "",
+          "statementID": "671671019173976444",
+          "takeawayNo": null
+        },
+        {
+          "createdDate": "2022-12-14 14:59:33",
+          "food": {
+            "modifier": "",
+            "name": "Fish and Chips& 薯条",
+            "num": "1"
+          },
+          "isDelivery": true,
+          "receiverName": "Stephen Tseng",
+          "remark": "",
+          "statementID": "671671019173976444",
+          "takeawayNo": null
+        },
+        {
+          "createdDate": "2022-12-14 14:59:33",
+          "food": {
+            "modifier": "",
+            "name": "Crispy Chicken Tenders",
+            "num": "1"
+          },
+          "isDelivery": true,
+          "receiverName": "Stephen Tseng",
+          "remark": "",
+          "statementID": "671671019173976444",
+          "takeawayNo": null
+        },
+        {
+          "createdDate": "2022-12-14 14:59:33",
+          "food": {
+            "modifier": "sauce tartar",
+            "name": "Fish Goujons",
+            "num": "2"
+          },
+          "isDelivery": true,
+          "receiverName": "Stephen Tseng",
+          "remark": "",
+          "statementID": "671671019173976444",
+          "takeawayNo": null
+        }
+      ],
+      "hardwareType": "USB",
+      "pid": "0x0002",
+      "vid": "0x0002"
+    }
+  ]
+}
