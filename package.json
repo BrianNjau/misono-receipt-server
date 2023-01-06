@@ -26,7 +26,7 @@
     "usb": "^2.6.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.15",
+    "@types/node": "^18.11.18",
     "bumpp": "^8.2.1",
     "nodemon": "^2.0.20",
     "pkg": "^5.8.0",
