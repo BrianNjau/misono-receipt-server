@@ -281,11 +281,24 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
 
 /**
  * Build order print content
- * @param {OrderCustomContent} orderCustomContent
+ * @param {OrderCustomContent} billCustomContent
  */
-export const buildOrder = (orderCustomContent) => {
-  const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
+//orderCustomContent
+export const buildOrder = (billCustomContent) => {
+
+  const { isDelivery, takeawayNo, address, shopName, attendant, deliveryFee, tipsFee, discount, totalPrice, foodList, createdDate, statementID, remark, tableCode, receiverAdress, receiverName, receiverPhone } = billCustomContent
+
   const isTakeaway = !!takeawayNo
+
+  const PINNo = `PIN No P051103764u`
+  const VATNo = `VAT No 0101721X`
+  const TelNo = `Tel 0722511229`
+  const PoBox = "Nairobi-76494"
+  const myAddie =  address.split(",")
+  const mA = `${myAddie[0]}, ${myAddie[1]}, ${myAddie[2]}`
+
+
+  const HEADER = `"\n-\n${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -299,36 +312,92 @@ export const buildOrder = (orderCustomContent) => {
     SUB_HEADER = `"^DELIVERY\n-\n`
   }
 
-  //Get normalized order 
- const normalizedFoodList = []
- const normalizedFood = normalizedFoodList.find((record) => record.name === food.name && record.modifier === food.modifier)
+  const deliveryFeeMd = deliveryFee ? `Delivery Fee | "^${deliveryFee}\n` : ''
+  const tipsFeeMd = tipsFee ? `^Tips | "^${tipsFee}\n` : ''
+  const discountMd = discount ? `^Discount | "^${discount}\n` : ''
+  /** @type {NormalizedFood[]} */
+  const normalizedFoodList = []
+  foodList.forEach((food) => {
+    const normalizedFood = normalizedFoodList.find((record) => record.name === food.name && record.modifier === food.modifier)
     if (normalizedFood) {
       normalizedFood.num += n(food.num)
     } else {
       normalizedFoodList.push({
         ...food,
         num: n(food.num),
-       
+        price: n(food.price),
       })
     }
-  
-    const MYFOOD_TABLE = `|Name | Qty |\n-
-    ${normalizedFoodList.map(({ name, modifier, num }) => `|^${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ^${num} |`).join('\n')}`
-
-
-
-
-
-  const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
+  })
+  const FOOD_TABLE = `|Name | Qty |\n-
+${normalizedFoodList.map(({ name, modifier, num}) => `|${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ${num} |`).join('\n')}
+-\n\n-\n`
 
   const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
   const createdDateMd = createdDate ? `Date Time: |${createdDate}\n` : ''
   const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''
+  const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
+  const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
-  const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${remarkMd}{w:auto}\n-\n`
+  // const trainingLevy = `CTL 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
+  // const serviceCharge = `SC 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
+  // const itemValue = `Taxable: | ${Math.round(parseFloat(totalPrice.replace(/,/g, "")) - (0.16 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.05 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.02 * parseFloat(totalPrice.replace(/,/g, ""))))}\n`
+  // const vatValue = `VAT 16%: | ${0.16 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
 
-  return SUB_HEADER + MYFOOD_TABLE + FOOTER
+
+
+  const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
+
+  return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
+
+
+
+//   const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
+//   const isTakeaway = !!takeawayNo
+
+//   let SUB_HEADER = ''
+//   if (!isDelivery && !isTakeaway) {
+//     // Onsite - 堂食
+//     SUB_HEADER = `"^TABLE ${tableCode}\n-\n`
+//   } else if (isTakeaway) {
+//     // Takeway - 自取
+//     SUB_HEADER = `"^TAKEWAY NO. ${takeawayNo}\n-\n`
+//   } else if (isDelivery) {
+//     // Delivery - 外卖
+//     SUB_HEADER = `"^DELIVERY\n-\n`
+//   }
+
+//   //Get normalized order 
+//  const normalizedFoodList = []
+//  const normalizedFood = normalizedFoodList.find((record) => record.name === food.name && record.modifier === food.modifier)
+//     if (normalizedFood) {
+//       normalizedFood.num += n(food.num)
+//     } else {
+//       normalizedFoodList.push({
+//         ...food,
+//         num: n(food.num),
+       
+//       })
+//     }
+  
+//     // const MYFOOD_TABLE = `|Name | Qty |\n-
+//     // ${normalizedFoodList.map(({ name, modifier, num }) => `|^${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ^${num} |`).join('\n')}`
+
+
+
+
+
+//   const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
+
+//   const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
+//   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
+//   const createdDateMd = createdDate ? `Date Time: |${createdDate}\n` : ''
+//   const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''
+//   const remarkMd = remark ? `Remark: |${remark}\n` : ''
+//   const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${remarkMd}{w:auto}\n-\n`
+
+//   return SUB_HEADER + FOOD_TABLE + FOOTER
 }
 
 /**
