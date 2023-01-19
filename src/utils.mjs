@@ -263,9 +263,9 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
   const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
-  const trainingLevy = `Training Levy 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
-  const serviceCharge = `Service Charge 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
-  const itemValue = `Item Value: |${parseInt(totalPrice.replace(/,/g, "")) - (0.16 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.05 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.02 * parseFloat(totalPrice.replace(/,/g, "")))}\n`
+  const trainingLevy = `CTL 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
+  const serviceCharge = `SC 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
+  const itemValue = `Value: |${parseInt(totalPrice.replace(/,/g, "")) - (0.16 * parseInt(totalPrice.replace(/,/g, ""))) - (0.05 * parseInt(totalPrice.replace(/,/g, ""))) - (0.02 * parseInt(totalPrice.replace(/,/g, "")))}\n`
   const vatValue = `VAT 16%: | ${0.16 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
 
 
