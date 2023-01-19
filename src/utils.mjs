@@ -223,7 +223,7 @@ export const buildBill = (billCustomContent) => {
   const PoBox = "Nairobi-76494"
 
 
-  const HEADER = `"\n-\n${shopName}\n-\n${address}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n\n`
+  const HEADER = `"\n-\n${shopName}\n-\n${address}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
