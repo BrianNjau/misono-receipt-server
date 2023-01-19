@@ -290,15 +290,15 @@ export const buildOrder = (billCustomContent) => {
 
   const isTakeaway = !!takeawayNo
 
-  const PINNo = `PIN No P051103764u`
-  const VATNo = `VAT No 0101721X`
-  const TelNo = `Tel 0722511229`
-  const PoBox = "Nairobi-76494"
-  const myAddie =  address.split(",")
-  const mA = `${myAddie[0]}, ${myAddie[1]}, ${myAddie[2]}`
+  // const PINNo = `PIN No P051103764u`
+  // const VATNo = `VAT No 0101721X`
+  // const TelNo = `Tel 0722511229`
+  // const PoBox = "Nairobi-76494"
+  // const myAddie =  address.split(",")
+  // const mA = `${myAddie[0]}, ${myAddie[1]}, ${myAddie[2]}`
 
 
-  const HEADER = `"\n-\n${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
+  // const HEADER = `"\n-\n${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -312,9 +312,9 @@ export const buildOrder = (billCustomContent) => {
     SUB_HEADER = `"^DELIVERY\n-\n`
   }
 
-  const deliveryFeeMd = deliveryFee ? `Delivery Fee | "^${deliveryFee}\n` : ''
-  const tipsFeeMd = tipsFee ? `^Tips | "^${tipsFee}\n` : ''
-  const discountMd = discount ? `^Discount | "^${discount}\n` : ''
+  // const deliveryFeeMd = deliveryFee ? `Delivery Fee | "^${deliveryFee}\n` : ''
+  // const tipsFeeMd = tipsFee ? `^Tips | "^${tipsFee}\n` : ''
+  // const discountMd = discount ? `^Discount | "^${discount}\n` : ''
   /** @type {NormalizedFood[]} */
   const normalizedFoodList = []
   foodList.forEach((food) => {
@@ -336,9 +336,9 @@ ${normalizedFoodList.map(({ name, modifier, num}) => `|${name} |\n${modifier ? `
   const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
   const createdDateMd = createdDate ? `Date Time: |${createdDate}\n` : ''
-  const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''
-  const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
-  const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
+  // const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''
+  // const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
+  // const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
   // const trainingLevy = `CTL 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
   // const serviceCharge = `SC 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
@@ -347,9 +347,9 @@ ${normalizedFoodList.map(({ name, modifier, num}) => `|${name} |\n${modifier ? `
 
 
 
-  const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
+   const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${remarkMd}{w:auto}\n-\n`
 
-  return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
+  return  SUB_HEADER + FOOD_TABLE + FOOTER
 
 
 
