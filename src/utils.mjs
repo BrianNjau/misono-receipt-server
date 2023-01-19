@@ -221,9 +221,11 @@ export const buildBill = (billCustomContent) => {
   const VATNo = `VAT No 0101721X`
   const TelNo = `Tel 0722511229`
   const PoBox = "Nairobi-76494"
+  const myAddie =  address.split(",")
+  const mA = `${myAddie[0]}, ${myAddie[1]}, ${myAddie[2]}`
 
 
-  const HEADER = `"\n-\n${shopName}\n-\n${address}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
+  const HEADER = `"\n-\n${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
