@@ -217,7 +217,11 @@ export const buildBill = (billCustomContent) => {
 
   const isTakeaway = !!takeawayNo
 
-  const HEADER = `"^${shopName}\n\n${address}\n\n`
+  const PINNo = "PIN No P051103764u"
+  const VATNo = "VAT No 0101721X"
+
+
+  const HEADER = `"^${shopName}\n\n${address}\n\n${PINNo}\n\n${VATNo}\n\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -259,7 +263,14 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
   const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
-  const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
+  const trainingLevy = `Training Levy 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}`
+  const serviceCharge = `Service Charge 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}`
+  const itemValue = `Item Value: |${parseFloat(totalPrice.replace(/,/g, "")) - (0.16 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.05 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.02 * parseFloat(totalPrice.replace(/,/g, "")))}`
+  const vatValue = `VAT 16%: | ${0.16 * parseFloat(totalPrice.replace(/,/g, ""))}`
+
+
+
+  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
