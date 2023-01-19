@@ -217,13 +217,13 @@ export const buildBill = (billCustomContent) => {
 
   const isTakeaway = !!takeawayNo
 
-  const PINNo = "PIN No P051103764u"
-  const VATNo = "VAT No 0101721X"
-  const TelNo = "Tel No 0722511229"
+  const PINNo = `PIN No P051103764u\n-\n`
+  const VATNo = `VAT No 0101721X\n-\n`
+  const TelNo = `Tel No 0722511229\n-\n`
   const PoBox = "Nairobi-76494"
 
 
-  const HEADER = `"${shopName}\n\n${address}\n\n${PINNo}\n\n${VATNo}\n\n${TelNo}\n\n${PoBox}\n\n`
+  const HEADER = `"^${shopName}\n\n${address}\n\n${PINNo}\n\n${VATNo}\n\n${TelNo}\n\n${PoBox}\n\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -267,7 +267,7 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
   const trainingLevy = `CTL 2%: | ${0.02 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
   const serviceCharge = `SC 5%: | ${0.05 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
-  const itemValue = `Taxable: |${Math.round(parseInt(totalPrice.replace(/,/g, "")) - (0.16 * parseInt(totalPrice.replace(/,/g, ""))) - (0.05 * parseInt(totalPrice.replace(/,/g, ""))) - (0.02 * parseInt(totalPrice.replace(/,/g, ""))))}\n`
+  const itemValue = `Taxable: | ${Math.round(parseFloat(totalPrice.replace(/,/g, "")) - (0.16 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.05 * parseFloat(totalPrice.replace(/,/g, ""))) - (0.02 * parseFloat(totalPrice.replace(/,/g, ""))))}\n`
   const vatValue = `VAT 16%: | ${0.16 * parseFloat(totalPrice.replace(/,/g, ""))}\n`
 
 
