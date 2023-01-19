@@ -299,6 +299,26 @@ export const buildOrder = (orderCustomContent) => {
     SUB_HEADER = `"^DELIVERY\n-\n`
   }
 
+  //Get normalized order 
+ const normalizedFoodList = []
+ const normalizedFood = normalizedFoodList.find((record) => record.name === food.name && record.modifier === food.modifier)
+    if (normalizedFood) {
+      normalizedFood.num += n(food.num)
+    } else {
+      normalizedFoodList.push({
+        ...food,
+        num: n(food.num),
+       
+      })
+    }
+  
+    const MYFOOD_TABLE = `|Name | Qty |\n-
+    ${normalizedFoodList.map(({ name, modifier, num }) => `|^${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ^${num} |`).join('\n')}`
+
+
+
+
+
   const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
 
   const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
@@ -308,7 +328,7 @@ export const buildOrder = (orderCustomContent) => {
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
   const FOOTER = `{w:10,*}\n${statementIDMd}${attendantMd}${createdDateMd}${receiverNameMd}${remarkMd}{w:auto}\n-\n`
 
-  return SUB_HEADER + FOOD_TABLE + FOOTER
+  return SUB_HEADER + MYFOOD_TABLE + FOOTER
 }
 
 /**
