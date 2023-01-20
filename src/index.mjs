@@ -171,7 +171,7 @@ try {
                 }
               } else if (hardwareType === 'USB') {
                 //Change to ! after testing
-                if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
+                if (hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
                 else {
                   // console.log("HERE IS CHEF CONT", chefContent)
                   // const commands = await print(chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n'), `-l zh -p generic`)
