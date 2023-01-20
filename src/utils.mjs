@@ -318,21 +318,21 @@ export const buildOrder = (chefContent) => {
 
 
   // const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
-  const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = chefContent[0]
+  const { isDelivery, takeawayNo, tableCode, attendant, createdDate, statementID, receiverName, remark } = chefContent[0]
   const isTakeaway = !!takeawayNo
 
   const myFood = []
 
-  chefContent.map((a => {
-    if(a){
-  return  myFood.push({
+  chefContent.forEach(( a => {
+     myFood.push({
       name: a.food.name,
       num: a.food.num,
+      ...a
       
-    })}
+    })
   }))
 
-  //  console.log("myFood => ",myFood)
+    console.log("myFood => ",myFood)
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -351,7 +351,7 @@ export const buildOrder = (chefContent) => {
      const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} |`).join('\n-\n')}`
 
 
-  //  console.log(MYFOOD_TABLE)
+    console.log(MYFOOD_TABLE)
 
 
   // const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
