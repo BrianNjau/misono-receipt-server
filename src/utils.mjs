@@ -332,7 +332,7 @@ export const buildOrder = (chefContent) => {
     })
   }))
 
-    console.log("myFood => ",myFood)
+    // console.log("myFood => ",myFood)
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -351,7 +351,7 @@ export const buildOrder = (chefContent) => {
      const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} |`).join('\n-\n')}`
 
 
-    console.log(MYFOOD_TABLE)
+    // console.log(MYFOOD_TABLE)
 
 
   // const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
