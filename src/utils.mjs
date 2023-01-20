@@ -290,7 +290,7 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
   const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
   const serviceCharge = `SC 5%: | ${parseFloat(0.05 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
-  const itemValue = `Taxable: | ${parseFloat(totalPrice.replace(/,/g, "")).toFixed(2) - (0.16 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.05 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.02 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2))}\n`
+  const itemValue = `Taxable: | ${parseFloat(parseFloat(totalPrice.replace(/,/g, "")).toFixed(2) - (0.16 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.05 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.02 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2))).toFixed(2)}\n`
   const vatValue = `VAT 16%: | ${parseFloat(0.16 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
 
 
