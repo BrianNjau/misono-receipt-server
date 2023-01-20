@@ -175,7 +175,7 @@ try {
                 else {
                   // console.log("HERE IS CHEF CONT", chefContent)
                   // const commands = await print(chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n'), `-l zh -p generic`)
-
+                  
                   // Req to make order appear as a list
                   const commands = await print(buildOrder(chefContent), `-l zh -p generic`)
                   const device = new USB(vid, pid)

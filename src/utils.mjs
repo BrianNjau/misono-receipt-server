@@ -221,7 +221,7 @@ export const f = (str) => numeral(str).format(PRICE)
 /**
  * @public
  * @typedef ToPrintChefContent
- * @property {ChefContent[]} chefContent
+ * @property {ChefContent} chefContent
  * @property {"Network" | "USB"} hardwareType
  * @property {string} [ip]
  * @property {string} [vid]
@@ -276,6 +276,7 @@ export const buildBill = (billCustomContent) => {
       })
     }
   })
+  // console.log("norm =>" , normalizedFoodList)
   const FOOD_TABLE = `|Name | Qty | Price | Total|\n-
 ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ${num} | ${f(price)} | "${f(n(num) * n(price))}|`).join('\n')}
 -\n${deliveryFeeMd}${tipsFeeMd}${discountMd}^TOTAL | "^${totalPrice}\n-\n`
@@ -320,19 +321,16 @@ export const buildOrder = (chefContent) => {
   // const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
   const { isDelivery, takeawayNo, tableCode, attendant, createdDate, statementID, receiverName, remark } = chefContent[0]
   const isTakeaway = !!takeawayNo
+  console.log(chefContent)
 
-  const myFood = []
+ 
+ const myFood = []
+   chefContent.map(( a => myFood.push({
+    name: a.food.name,
+    num: n(a.food.num),
+  })))
 
-  chefContent.forEach(( a => {
-     myFood.push({
-      name: a.food.name,
-      num: a.food.num,
-      ...a
-      
-    })
-  }))
-
-    // console.log("myFood => ",myFood)
+   console.log("myFood => ",myFood)
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -346,12 +344,17 @@ export const buildOrder = (chefContent) => {
     SUB_HEADER = `"^DELIVERY\n-\n`
   }
 
-
-  // console.log(myFood)
-     const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} |`).join('\n-\n')}`
+  // const  sol = myFood.map(({ name, num }) => `|"^${name} | "^${num} |`).join('\n-\n')
 
 
-    // console.log(MYFOOD_TABLE)
+
+  //  console.log(sol)
+
+const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} | \n-\n`).toString().replaceAll(',',"")}`
+
+
+// console.log("MY TABLE",MYFOOD_TABLE)
+// console.log("MY HEADER",SUB_HEADER)
 
 
   // const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
