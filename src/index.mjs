@@ -163,7 +163,7 @@ try {
                   ping.sys.probe(ip, async function (isAlive) {
                     if (!isAlive) handler('1', `Print ${printType} to Network failed: ip:${ip} failed to connect.`)
                     else {
-                      const commands = chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n')
+                      const commands =  print(buildOrder(chefContent), `-l zh -p generic`)
                       await print(commands, `-d ${ip} -l zh -p generic`)
                       handler('0', `Print ${printType} to Network:${ip} success.`)
                     }
