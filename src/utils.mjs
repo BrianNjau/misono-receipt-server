@@ -328,7 +328,7 @@ export const buildOrder = (chefContent) => {
     name: a.food.name
   })))
 
-   console.log("myFood => ",myFood)
+  //  console.log("myFood => ",myFood)
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
