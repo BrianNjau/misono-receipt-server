@@ -170,9 +170,14 @@ try {
                   })
                 }
               } else if (hardwareType === 'USB') {
+                //Change to ! after testing
                 if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
                 else {
-                  const commands = await print(chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n'), `-l zh -p generic`)
+                  // console.log("HERE IS CHEF CONT", chefContent)
+                  // const commands = await print(chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n'), `-l zh -p generic`)
+
+                  // Req to make order appear as a list
+                  const commands = await print(buildOrder(chefContent), `-l zh -p generic`)
                   const device = new USB(vid, pid)
                   device.open((err) => {
                     if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}`)
