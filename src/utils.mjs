@@ -344,8 +344,8 @@ export const buildOrder = (chefContent) => {
 
 
   
-     const MYFOOD_TABLE = `{w:6,*}\n|Name | Qty |\n-
-     ${myFood.map(({ name, num }) => `|${name} | ${num} |`).join('{w:auto}\n-\n')}`
+     const MYFOOD_TABLE = `|Name | Qty |\n-
+     ${myFood.map(({ name, num }) => `|${name} | ${num} |`).join('\n-\n')}`
 
 
 
