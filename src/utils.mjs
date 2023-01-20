@@ -323,11 +323,14 @@ export const buildOrder = (chefContent) => {
 
   const myFood = []
 
-  chefContent.map((a => myFood.push({
-
-    num: a.food.num,
-    name: a.food.name
-  })))
+  chefContent.map((a => {
+    if(a){
+  return  myFood.push({
+      name: a.food.name,
+      num: a.food.num,
+      
+    })}
+  }))
 
   //  console.log("myFood => ",myFood)
 
@@ -344,12 +347,11 @@ export const buildOrder = (chefContent) => {
   }
 
 
-  
-     const MYFOOD_TABLE = `|Name | Qty |\n-
-     ${myFood.map(({ name, num }) => `|^${name} |${num} |`).join('\n-\n')}`
+  // console.log(myFood)
+     const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} |`).join('\n-\n')}`
 
 
-  // console.log(MYFOOD_TABLE)
+  //  console.log(MYFOOD_TABLE)
 
 
   // const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
