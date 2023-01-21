@@ -288,10 +288,10 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
   const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
-  const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
-  const serviceCharge = `SC 5%: | ${parseFloat(0.05 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
-  const itemValue = `Taxable: | ${parseFloat(parseFloat(totalPrice.replace(/,/g, "")).toFixed(2) - (0.16 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.05 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2)) - (0.02 * parseFloat(totalPrice.replace(/,/g, "")).toFixed(2))).toFixed(2)}\n`
-  const vatValue = `VAT 16%: | ${parseFloat(0.16 * parseFloat(totalPrice.replace(/,/g, ""))).toFixed(2)}\n`
+  const itemValue = `Taxable: | ${parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2)})\n`
+  const vatValue = `VAT 16%: | ${parseFloat(0.16 *parseFloat(itemValue.replace(/,/g, ""))).toFixed(2)}\n`
+  const serviceCharge = `SC 5%: | ${parseFloat(0.05 * parseFloat(itemValue.replace(/,/g, ""))).toFixed(2)}\n`
+  const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * parseFloat(itemValue.replace(/,/g, ""))).toFixed(2)}\n`
 
 
 
@@ -350,7 +350,7 @@ export const buildOrder = (chefContent) => {
 
   //  console.log(sol)
 
-const MYFOOD_TABLE = `|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} | \n-\n`).toString().replaceAll(',',"")}`
+const MYFOOD_TABLE = `{w:10,*}\n|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} | \n{w:auto}\n-\n`).toString().replaceAll(',',"")}`
 
 
 // console.log("MY TABLE",MYFOOD_TABLE)
