@@ -5,7 +5,7 @@ import { setInterval, clearInterval } from 'node:timers'
 import ping from 'ping'
 import numeral from 'numeral'
 import { PRICE, SESSION_PATH } from './constants.mjs'
-// import QRCode from 'qrcode'
+
 /**
  * 获取某个文件的大小（mb）
  * https://stackoverflow.com/questions/42363140/how-to-find-the-size-of-the-file-in-node-js
@@ -232,7 +232,7 @@ export const f = (str) => numeral(str).format(PRICE)
  * Build bill print content
  * @param {BillCustomContent} billCustomContent
  */
-export const buildBill = async(billCustomContent) => {
+export const buildBill = (billCustomContent) => {
   const { isDelivery, takeawayNo, address, shopName, attendant, deliveryFee, tipsFee, discount, totalPrice, foodList, createdDate, statementID, remark, tableCode, receiverAdress, receiverName, receiverPhone } = billCustomContent
 
   const isTakeaway = !!takeawayNo
@@ -293,15 +293,7 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const serviceCharge = `SC 5%: | ${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
 
-  // const generateQR = async text => {
-  //   try {
-  //     return await QRCode.toDataURL(text)
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
 
-  // const {qrCode} = qr
 
   const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
 
@@ -419,39 +411,21 @@ export const buildRevenueAnalysis = (revenueAnalysisContent) => {
   const TOTALS = `\n Total Amount | ${totalAmount} \n\n Total Orders | ${totalOrders} \n-\n`
 
   const ORDER_TYPE_REPORT = `\n ^Order Type Report 
-
-
     Dining in Amount | ${totalDiningInAmount}
-
     Dining in Orders | ${totalDiningInOrders} 
-
-
     Takeaway Amount | ${totalTakeawayAmount}
-
     Takeaway Orders | ${totalTakeawayOrders} 
-
-
     Delivery Amount | ${totalDeliveryAmount}
-
     Delivery Orders | ${totalDeliveryOrders}
-
     -\n`
 
   const PAYMENT_TYPE_REPORT = `\n ^Payment Type Report
-
-
     Online Payment | ${totalOnlinePaymentAmount}
-
     Cash | ${totalCashPaymentAmount}
-
     Credit Card | ${totalCreditCardAmount}
-
     Personal Transfer | ${totalPersonalTransferAmount}
-
     Credit Transaction | ${totalCreditTransactionAmount}
-
     Staff Free | ${totalStaffFreeAmount}
-
     -\n`
 
   const AVERAGES_PER_ORDER = `\n ^Averages Per Order 
