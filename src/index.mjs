@@ -139,6 +139,20 @@ try {
               }
             } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
             else handler('1', `Print ${printType} failed: Unsupported hardwareType: ${hardwareType}`)
+
+            // KRA REQUIREMENTS 
+                   /// Only post to ETR after it is paid
+                   if (statementID) {
+              
+                    await postToETR(customerContent)
+                    return
+       
+       
+                   }
+
+
+
+
           } catch (err) {
             handler('1', `Print ${printType} failed: ${err.message}`)
           }
