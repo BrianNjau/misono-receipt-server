@@ -5,15 +5,20 @@ import { setInterval, clearInterval } from 'node:timers'
 import ping from 'ping'
 import numeral from 'numeral'
 import { PRICE, SESSION_PATH } from './constants.mjs'
-import {createCanvas} from 'canvas'
 import QRCode from 'qrcode'
 
-const canvas = createCanvas(200, 200)
-
-const myCode = QRCode.toCanvas(canvas,'www.google.com', function (err, url) {
-  console.log(url)
-})
-
+const opts = {
+  errorCorrectionLevel: 'H',
+  type: 'terminal',
+  quality: 0.95,
+  margin: 1,
+  color: {
+   dark: '#208698',
+   light: '#FFF',
+  },
+ }
+ 
+ const qrImage = await QRCode.toString('Hi testing QR code', opts)
 /**
  * 获取某个文件的大小（mb）
  * https://stackoverflow.com/questions/42363140/how-to-find-the-size-of-the-file-in-node-js
@@ -304,7 +309,7 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
 
 
 
-  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n${qr}`
+  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n${qrImage}`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
