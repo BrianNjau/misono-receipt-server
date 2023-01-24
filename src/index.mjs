@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import fs from 'node:fs'
 import net from 'node:net'
 import crypto from 'node:crypto'
@@ -7,7 +5,7 @@ import cors from 'cors'
 import ping from 'ping'
 import express from 'express'
 import chokidar from 'chokidar'
-// import { postToETR } from './etr.mjs'
+import { postToETR } from './etr.mjs'
 import USB from '../lib/escpos-usb.mjs'
 import * as receiptio from '../lib/receiptio.js'
 import { OTHER_BRAND, PRINT_TIME, SESSION_PATH } from './constants.mjs'
@@ -122,7 +120,13 @@ try {
               if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
               else {
                 const commands = await print(buildBill(customerContent), `-l zh -p generic`)
-                  
+                 // KRA REQUIREMENTS 
+                   /// Only post to ETR after it is paid
+                   if (statementID) { 
+                    await postToETR(customerContent)
+                   }
+
+
                 const device = new USB(vid, pid)
                 device.open((err) => {
                   if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}.`)
@@ -138,8 +142,13 @@ try {
                   }
                 })
               }
-          } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
+            } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
             else handler('1', `Print ${printType} failed: Unsupported hardwareType: ${hardwareType}`)
+
+           
+
+
+
           } catch (err) {
             handler('1', `Print ${printType} failed: ${err.message}`)
           }
