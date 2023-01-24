@@ -126,7 +126,7 @@ try {
                    /// Only post to ETR after it is paid
                    if (statementID) { 
                     const {data} =  await postToETR(customerContent)
-                  commands = await print(buildBill(customerContent, data.qrCode), `-l zh -p generic`)
+                  commands = await print(buildBill(customerContent, data), `-l zh -p generic`)
   
                      } else{
                       commands = await print(buildBill(customerContent), `-l zh -p generic`)

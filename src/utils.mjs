@@ -301,8 +301,10 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
     }
   }
 
+  const {qrCode} = qr
+
   const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n
-  ${generateQR(qr)}`
+  ${generateQR(qrCode)}`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
