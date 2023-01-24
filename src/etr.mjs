@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-//TO DO : MOVE ALL HARDCODED CREDENTIALS TO ENV FILE 
 
 
 // Post to CopyCat ETR

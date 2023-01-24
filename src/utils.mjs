@@ -5,6 +5,13 @@ import { setInterval, clearInterval } from 'node:timers'
 import ping from 'ping'
 import numeral from 'numeral'
 import { PRICE, SESSION_PATH } from './constants.mjs'
+ 
+import QRCode from 'qrcode'
+
+
+const myCode = QRCode.toString('www.google.com',{type:'terminal'}, function (err, url) {
+  // console.log(url)
+})
 
 /**
  * 获取某个文件的大小（mb）
@@ -292,10 +299,11 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const vatValue = `VAT 16%: | ${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const serviceCharge = `SC 5%: | ${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
+  const qr = myCode ? `\n${myCode}\n\n`:''
 
 
 
-  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
+  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n${qr}`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
@@ -321,7 +329,7 @@ export const buildOrder = (chefContent) => {
   // const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
   const { isDelivery, takeawayNo, tableCode, attendant, createdDate, statementID, receiverName, remark } = chefContent[0]
   const isTakeaway = !!takeawayNo
-  console.log(chefContent)
+  // console.log(chefContent)
 
  
  const myFood = []
@@ -330,7 +338,7 @@ export const buildOrder = (chefContent) => {
     num: n(a.food.num),
   })))
 
-   console.log("myFood => ",myFood)
+  //  console.log("myFood => ",myFood)
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
