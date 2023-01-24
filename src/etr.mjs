@@ -1,5 +1,4 @@
 import axios from 'axios'
-import qs from 'qs';
 
 //TO DO : MOVE ALL HARDCODED CREDENTIALS TO ENV FILE 
 
@@ -47,7 +46,7 @@ export const postToETR = async (customerContent) => {
    
     )
 
-    console.log("DATA ==>", data)
+    // console.log("DATA ==>", data)
     return data
 
 

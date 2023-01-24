@@ -122,15 +122,7 @@ try {
               if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
               else {
                 const commands = await print(buildBill(customerContent), `-l zh -p generic`)
-                   // KRA REQUIREMENTS 
-                   /// Only post to ETR after it is paid
-                  //  if (statementID) { 
-                  //   const {data} =  await postToETR(customerContent)
-                  // commands = await print(buildBill(customerContent, data), `-l zh -p generic`)
-  
-                  //    } else{
-                  //     commands = 
-                  //    }
+                  
                 const device = new USB(vid, pid)
                 device.open((err) => {
                   if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}.`)
@@ -140,20 +132,14 @@ try {
                       else {
                         const waitTime = printTimeMap[pid]
                         await sleep(waitTime)
-                 
                         handler('0', `Print ${printType} to USB:[${vid};${pid}] success.`, () => device.close(taskQueue.next))
                       }
                     })
                   }
                 })
               }
-            } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
+          } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
             else handler('1', `Print ${printType} failed: Unsupported hardwareType: ${hardwareType}`)
-
-           
-
-
-
           } catch (err) {
             handler('1', `Print ${printType} failed: ${err.message}`)
           }

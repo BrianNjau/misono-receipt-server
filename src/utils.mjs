@@ -5,7 +5,7 @@ import { setInterval, clearInterval } from 'node:timers'
 import ping from 'ping'
 import numeral from 'numeral'
 import { PRICE, SESSION_PATH } from './constants.mjs'
-import QRCode from 'qrcode'
+// import QRCode from 'qrcode'
 /**
  * 获取某个文件的大小（mb）
  * https://stackoverflow.com/questions/42363140/how-to-find-the-size-of-the-file-in-node-js
