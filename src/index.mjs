@@ -121,7 +121,16 @@ try {
             } else if (hardwareType === 'USB') {
               if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
               else {
-                const commands = await print(buildBill(customerContent), `-l zh -p generic`)
+                let commands 
+                   // KRA REQUIREMENTS 
+                   /// Only post to ETR after it is paid
+                   if (statementID) { 
+                    const {data} =  await postToETR(customerContent)
+                  commands = await print(buildBill(customerContent, data.qrCode), `-l zh -p generic`)
+  
+                     } else{
+                      commands = await print(buildBill(customerContent), `-l zh -p generic`)
+                     }
                 const device = new USB(vid, pid)
                 device.open((err) => {
                   if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}.`)
@@ -131,13 +140,7 @@ try {
                       else {
                         const waitTime = printTimeMap[pid]
                         await sleep(waitTime)
-                    // KRA REQUIREMENTS 
-                   /// Only post to ETR after it is paid
-                   if (statementID) { 
-                    const {data} =  await postToETR(customerContent)
-                    await print(buildBill(customerContent, data.qrCode), `-l zh -p generic`)
-  
-                     }
+                 
                         handler('0', `Print ${printType} to USB:[${vid};${pid}] success.`, () => device.close(taskQueue.next))
                       }
                     })
