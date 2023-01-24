@@ -20,11 +20,11 @@ export const postToETR = async (customerContent) => {
                         "namePLU":obj.name,
                         "taxRate": 16,
                         //Item Price
-                        "unitPrice":parseFloat(obj.price),
+                        "unitPrice":parseFloat(obj.price.replace(/,/g, "")),
                         //Item Discount
                         "discount":0,
                         "hsCode":"",
-                        "quantity":parseFloat(obj.num),
+                        "quantity":parseFloat(obj.num.replace(/,/g, "")),
                         "measureUnit":"",
                         "vatClass":"A"
 
@@ -39,7 +39,7 @@ export const postToETR = async (customerContent) => {
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
                     "exemptionNumber":"",
-                    "totalInvoiceAmount":parseFloat(totalPrice),
+                    "totalInvoiceAmount":parseFloat(totalPrice.replace(/,/g, "")),
                     "systemUser":attendant
                 
             }
