@@ -9,7 +9,6 @@ export const postToETR = async (customerContent) => {
 
     const { attendant, statementID, address, shopName,discount, totalPrice, foodList, createdDate } = customerContent
 
-                                    //SERVER IP SPECIFIC TO ETR 
   const {data} =   await axios.post(`http://192.168.8.105:5000/EsdApi/deononline/signinvoice`,
 
             {
@@ -32,18 +31,17 @@ export const postToETR = async (customerContent) => {
 
                     }
                 }),
-                //TO DO : MOVE TO ENV
+
                     "senderId":"a4031de9-d11f-4b52-8cca-e1c7422f3c37",
                     "invoiceCategory":"tax_invoice",
-                    //Change to statementID
-                    "traderSystemInvoiceNumber":`${statementID}`,
+       
+                    "traderSystemInvoiceNumber":statementID.slice(-4),
                     "relevantInvoiceNumber":"",
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
                     "exemptionNumber":"",
                     "totalInvoiceAmount":parseFloat(totalPrice),
-                    // "Discount": parseFloat(discount)/parseFloat(totalPrice) ,
-                    "systemUser":`${attendant}`
+                    "systemUser":attendant
                 
             }
    
@@ -51,7 +49,6 @@ export const postToETR = async (customerContent) => {
 
     
     console.log("DATA ==>>", data)
-    console.log("ATTENDANT", attendant)
-    console.log("STATEMENT ID", statementID)
+
 }
 
