@@ -122,9 +122,9 @@ try {
                 const commands = await print(buildBill(customerContent), `-l zh -p generic`)
                  // KRA REQUIREMENTS 
                    /// Only post to ETR after it is paid
-                   if (statementID) { 
-                    await postToETR(customerContent)
-                   }
+                  //  if (statementID) { 
+                  //   await postToETR(customerContent)
+                  //  }
 
 
                 const device = new USB(vid, pid)
