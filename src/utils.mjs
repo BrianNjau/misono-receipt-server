@@ -5,7 +5,7 @@ import { setInterval, clearInterval } from 'node:timers'
 import ping from 'ping'
 import numeral from 'numeral'
 import { PRICE, SESSION_PATH } from './constants.mjs'
- 
+import {createCanvas} from 'canvas'
 import QRCode from 'qrcode'
 
 const canvas = createCanvas(200, 200)
