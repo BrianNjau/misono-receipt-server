@@ -359,7 +359,7 @@ const MYFOOD_TABLE = `{w:10,*}\n|Name | Qty |\n-\n${myFood.map(({ name, num }) =
 
   // const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
 
-  const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
+  const statementIDMd = statementID ? `Order No: |${statementID}\n` : ''
   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
   const createdDateMd = createdDate ? `Date Time: |${createdDate}\n` : ''
   const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''

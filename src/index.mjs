@@ -7,7 +7,7 @@ import cors from 'cors'
 import ping from 'ping'
 import express from 'express'
 import chokidar from 'chokidar'
-
+import { postToETR } from './etr.mjs'
 import USB from '../lib/escpos-usb.mjs'
 import * as receiptio from '../lib/receiptio.js'
 import { OTHER_BRAND, PRINT_TIME, SESSION_PATH } from './constants.mjs'
