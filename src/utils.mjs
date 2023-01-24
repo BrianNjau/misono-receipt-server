@@ -305,11 +305,11 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const vatValue = `VAT 16%: | ${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const serviceCharge = `SC 5%: | ${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
-  const qr = myCode ? `\n${myCode}\n\n`:''
+  const qr = qrImage ? `\n${qrImage}\n\n`:''
 
 
 
-  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n${qrImage}`
+  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n${qr}`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
