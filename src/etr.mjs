@@ -36,14 +36,14 @@ export const postToETR = async (customerContent) => {
                     "senderId":"a4031de9-d11f-4b52-8cca-e1c7422f3c37",
                     "invoiceCategory":"tax_invoice",
                     //Change to statementID
-                    "traderSystemInvoiceNumber":statementID.toString(),
+                    "traderSystemInvoiceNumber":`${statementID}`,
                     "relevantInvoiceNumber":"",
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
                     "exemptionNumber":"",
                     "totalInvoiceAmount":parseFloat(totalPrice),
                     // "Discount": parseFloat(discount)/parseFloat(totalPrice) ,
-                    "systemUser":attendant.toString()
+                    "systemUser":`${attendant}`
                 
             }
    
@@ -51,5 +51,7 @@ export const postToETR = async (customerContent) => {
 
     
     console.log("DATA ==>>", data)
+    console.log("ATTENDANT", attendant)
+    console.log("STATEMENT ID", statementID)
 }
 
