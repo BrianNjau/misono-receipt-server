@@ -121,16 +121,16 @@ try {
             } else if (hardwareType === 'USB') {
               if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
               else {
-                let commands 
+                const commands = await print(buildBill(customerContent), `-l zh -p generic`)
                    // KRA REQUIREMENTS 
                    /// Only post to ETR after it is paid
-                   if (statementID) { 
-                    const {data} =  await postToETR(customerContent)
-                  commands = await print(buildBill(customerContent, data), `-l zh -p generic`)
+                  //  if (statementID) { 
+                  //   const {data} =  await postToETR(customerContent)
+                  // commands = await print(buildBill(customerContent, data), `-l zh -p generic`)
   
-                     } else{
-                      commands = await print(buildBill(customerContent), `-l zh -p generic`)
-                     }
+                  //    } else{
+                  //     commands = 
+                  //    }
                 const device = new USB(vid, pid)
                 device.open((err) => {
                   if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}.`)
