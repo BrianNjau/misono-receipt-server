@@ -43,7 +43,7 @@ export const postToETR = async (customerContent) => {
                     "exemptionNumber":"",
                     "totalInvoiceAmount":parseFloat(totalPrice),
                     // "Discount": parseFloat(discount)/parseFloat(totalPrice) ,
-                    "systemUser":attendant
+                    "systemUser":attendant.toString()
                 
             }
    
