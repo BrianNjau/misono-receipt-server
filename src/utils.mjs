@@ -8,9 +8,10 @@ import { PRICE, SESSION_PATH } from './constants.mjs'
  
 import QRCode from 'qrcode'
 
+const canvas = createCanvas(200, 200)
 
-const myCode = QRCode.toString('www.google.com',{type:'terminal'}, function (err, url) {
-  // console.log(url)
+const myCode = QRCode.toCanvas(canvas,'www.google.com', function (err, url) {
+  console.log(url)
 })
 
 /**
