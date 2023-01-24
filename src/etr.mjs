@@ -36,7 +36,7 @@ export const postToETR = async (customerContent) => {
                     "senderId":"a4031de9-d11f-4b52-8cca-e1c7422f3c37",
                     "invoiceCategory":"tax_invoice",
                     //Change to statementID
-                    "traderSystemInvoiceNumber":statementID,
+                    "traderSystemInvoiceNumber":statementID.toString(),
                     "relevantInvoiceNumber":"",
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
@@ -49,8 +49,7 @@ export const postToETR = async (customerContent) => {
    
     )
 
-    console.log(data.msg)
-    console.log(data.response)
+    
     console.log("DATA ==>>", data)
 }
 
