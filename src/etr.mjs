@@ -19,7 +19,7 @@ export const postToETR = async (customerContent, res) => {
                         "namePLU":obj.name,
                         "taxRate": 16,
                         //Item Price
-                        "unitPrice":parseFloat(0.16 *(parseFloat(obj.price.replace(/,/g, ""))/1.23)).toFixed(2)+parseFloat(parseFloat(obj.price.replace(/,/g, ""))/1.23).toFixed,
+                        "unitPrice":parseFloat(parseFloat(0.16 *(parseFloat(obj.price.replace(/,/g, ""))/1.23)).toFixed(2)+parseFloat(parseFloat(obj.price.replace(/,/g, ""))/1.23).toFixed),
                         //Item Discount
                         "discount":0,
                         "hsCode":"",
@@ -38,7 +38,7 @@ export const postToETR = async (customerContent, res) => {
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
                     "exemptionNumber":"",
-                    "totalInvoiceAmount":parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2) + parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2),
+                    "totalInvoiceAmount":parseFloat(parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2) + parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2)),
                     "systemUser":attendant
                 
             }
