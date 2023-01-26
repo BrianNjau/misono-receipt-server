@@ -123,24 +123,29 @@ try {
                 if(statementID){
                 //
                    try{
-
                   const {data} =  await postToETR(customerContent);
-                  console.log(data)
-
-                    return
+                if(data){
+                  const commands = await print(buildBill(customerContent, data), `-l zh -p generic`)
+                  const device = new USB(vid, pid)
+                  device.open((err) => {
+                    if (err) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device open failed: ${err}.`)
+                    else {
+                      device.write(Buffer.from(commands, 'binary'), async (writeErr) => {
+                        if (writeErr) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB device write failed: ${writeErr}.`, () => device.close(taskQueue.next))
+                        else {
+                          const waitTime = printTimeMap[pid]
+                          await sleep(waitTime)
+                          handler('0', `Print ${printType} to USB:[${vid};${pid}] success.`, () => device.close(taskQueue.next))
+                        }
+                      })
+                    }
+                  })
+                }
                    }catch(err){
-
                    console.log(err)
-
-
                    }
 
-                 }
-         
-
-
-
-
+                 }else{
                 //
                 const commands = await print(buildBill(customerContent), `-l zh -p generic`)
                  // KRA REQUIREMENTS 
@@ -165,6 +170,7 @@ try {
                   }
                 })
               }
+            }
             } else if (OTHER_BRAND.includes(hardwareType)) handler('0', `Print ${printType}: ignore hardwareType ${hardwareType}`)
             else handler('1', `Print ${printType} failed: Unsupported hardwareType: ${hardwareType}`)
 

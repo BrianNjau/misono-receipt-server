@@ -45,7 +45,7 @@ export const postToETR = async (customerContent, res) => {
    
     )
 
-    console.log("DATA ==>", data)
+    // console.log("DATA ==>", data)
     return(data);
 
 
