@@ -38,7 +38,7 @@ export const postToETR = async (customerContent, res) => {
                     "pinOfBuyer":"",
                     "invoiceType":"Original",
                     "exemptionNumber":"",
-                    "totalInvoiceAmount":`${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2) + parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2)}`,
+                    "totalInvoiceAmount":parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2) + parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2),
                     "systemUser":attendant
                 
             }
