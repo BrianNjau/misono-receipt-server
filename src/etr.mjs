@@ -19,7 +19,7 @@ export const postToETR = async (customerContent, res) => {
                         "namePLU":obj.name,
                         "taxRate": 16,
                         //Item Price
-                        "unitPrice":parseFloat(obj.price.replace(/,/g, "")),
+                        "unitPrice":parseFloat(0.16 *(parseFloat(obj.price.replace(/,/g, ""))/1.23)).toFixed(2)+parseFloat(parseFloat(obj.price.replace(/,/g, ""))/1.23).toFixed,
                         //Item Discount
                         "discount":0,
                         "hsCode":"",
