@@ -3,11 +3,11 @@ import axios from 'axios'
 
 
 // Post to CopyCat ETR
-export const postToETR = async (customerContent) => {
+export const postToETR = async (customerContent, res) => {
 
     const { attendant, statementID, address, shopName,discount, totalPrice, foodList, createdDate } = customerContent
 
-  const {data} =   await axios.post(`http://192.168.8.105:5000/EsdApi/deononline/signinvoice`,
+  const data =   await axios.post(`http://192.168.8.105:5000/EsdApi/deononline/signinvoice`,
 
             {
                 "deonItemDetails":  
@@ -45,8 +45,8 @@ export const postToETR = async (customerContent) => {
    
     )
 
-    // console.log("DATA ==>", data)
-    return data
+    console.log("DATA ==>", data)
+    return(data);
 
 
 }

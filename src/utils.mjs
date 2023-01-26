@@ -258,7 +258,7 @@ export const buildBill = (billCustomContent) => {
   const mA = `${myAddie[0]}, ${myAddie[1]}, ${myAddie[2]}`
 
 
-  const HEADER = `"\n-\n${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
+  const HEADER = `\n-\n"${shopName}\n-\n${mA}\n${PINNo}\n${VATNo}\n${TelNo}\n${PoBox}\n-\n`
 
   let SUB_HEADER = ''
   if (!isDelivery && !isTakeaway) {
@@ -290,26 +290,30 @@ export const buildBill = (billCustomContent) => {
     }
   })
   // console.log("norm =>" , normalizedFoodList)
-  const FOOD_TABLE = `|Name | Qty | Price | Total|\n-
+  const FOOD_TABLE = `|"Name | "Qty | "Price | "Total|\n-
 ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modifier ? `|[${modifier}] |\n` : ''}|| ${num} | ${f(price)} | "${f(n(num) * n(price))}|`).join('\n')}
 -\n${deliveryFeeMd}${tipsFeeMd}${discountMd}^TOTAL | "^${totalPrice}\n-\n`
 
-  const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
+  const statementIDMd = statementID ? `Order No: |${statementID}\n` : ''
   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
   const createdDateMd = createdDate ? `Date Time: |${createdDate}\n` : ''
   const receiverNameMd = receiverName ? `Receiver: |${escapeChars(receiverName)}\n` : ''
   const receiverPhoneMd = receiverPhone ? `Phone No.: |${receiverPhone}\n` : ''
   const receiverAdressMd = receiverAdress ? `Address: |${receiverAdress}\n` : ''
   const remarkMd = remark ? `Remark: |${remark}\n` : ''
-  const itemValue = `Taxable: | ${parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2)}\n`
-  const vatValue = `VAT 16%: | ${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
-  const serviceCharge = `SC 5%: | ${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
-  const trainingLevy = `CTL 2%: | ${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
+  const itemValue = `Taxable: | "${parseFloat(parseFloat(totalPrice.replace(/,/g, ""))/1.23).toFixed(2)}\n`
+  const vatValue = `VAT 16%: | "${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
+  const serviceCharge = `SC 5%: | "${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
+  const trainingLevy = `CTL 2%: | "${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   // const qr = qrImage ? `\n${qrImage}\n\n`:''
+ const cuHeader = `"Control Unit Info`
+ const cuSerialNo = `Cu Serial No: |KRAMSWKDMKSMKX12312 `
+ const cuInvoiceNo = `Cu Invoice No: |787868666312 `
+
+  
 
 
-
-  const FOOTER = `{w:10,*}\n${statementIDMd}${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n`
+  const FOOTER = `{w:10,*}\n${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${statementIDMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n ^${cuHeader}\n\n{code:https:google.com; option:qrcode,8,M}\n\n${cuSerialNo}\n${cuInvoiceNo}\n-\n\n`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
@@ -326,10 +330,6 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
 export const buildOrder = (chefContent) => {
 
   // let orderList = [];
-
-
-
-
 
 
   // const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent

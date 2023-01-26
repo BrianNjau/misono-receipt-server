@@ -119,6 +119,29 @@ try {
             } else if (hardwareType === 'USB') {
               if (!hasUsbPrinters) handler('1', `Print ${printType} to USB:[${vid};${pid}] failed: USB Printers Not Found`)
               else {
+                //check if bill is paid
+                if(statementID){
+                //
+                   try{
+
+                  const {data} =  await postToETR(customerContent);
+                  console.log(data)
+
+                    return
+                   }catch(err){
+
+                   console.log(err)
+
+
+                   }
+
+                 }
+         
+
+
+
+
+                //
                 const commands = await print(buildBill(customerContent), `-l zh -p generic`)
                  // KRA REQUIREMENTS 
                    /// Only post to ETR after it is paid
