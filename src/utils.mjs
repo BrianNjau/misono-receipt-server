@@ -247,7 +247,8 @@ export const f = (str) => numeral(str).format(PRICE)
  */
 export const buildBill = (billCustomContent, data) => {
   const { isDelivery, takeawayNo, address, shopName, attendant, deliveryFee, tipsFee, discount, totalPrice, foodList, createdDate, statementID, remark, tableCode, receiverAdress, receiverName, receiverPhone } = billCustomContent
-  const {status, traderSystemInvoiceNumber, controlCode, qrCode, serialNo, invoiceType} = data
+  
+
   const isTakeaway = !!takeawayNo
 
   const PINNo = `PIN No P051103764u`
@@ -305,16 +306,25 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
   const vatValue = `VAT 16%: | "${parseFloat(0.16 *(parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const serviceCharge = `SC 5%: | "${parseFloat(0.05 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
   const trainingLevy = `CTL 2%: | "${parseFloat(0.02 * (parseFloat(totalPrice.replace(/,/g, ""))/1.23)).toFixed(2)}\n`
-  // const qr = qrImage ? `\n${qrImage}\n\n`:''
- const cuHeader = qrCode? `"Control Unit Info`:''
- const receiptType = invoiceType? `"${invoiceType}`:''
- const cuSerialNo = serialNo? `Cu Serial No: |${serialNo}`:''
- const cuInvoiceNo = controlCode?`Cu Invoice No: |${controlCode} `:''
+  let FOOTER = ``;
+  if(data){
+
+    const {status, traderSystemInvoiceNumber, controlCode, qrCode, serialNo, invoiceType} = data 
+    const cuHeader = qrCode? `"Control Unit Info`:''
+    const receiptType = invoiceType? `"${invoiceType}`:''
+    const cuSerialNo = serialNo? `Cu Serial No: |${serialNo}`:''
+    const cuInvoiceNo = controlCode?`Cu Invoice No: |${controlCode} `:''
+    FOOTER = `{w:10,*}\n${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${statementIDMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n ^${cuHeader}\n\n${invoiceType}\n\n{code:${qrCode}; option:qrcode,8,M}\n\n${cuSerialNo}\n${cuInvoiceNo}\n-\n\n`
+
+
+  }else {
+    
+   FOOTER = `{w:10,*}\n${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${statementIDMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n`
+  }
+
 
   
 
-
-  const FOOTER = `{w:10,*}\n${itemValue}${vatValue}${trainingLevy}${serviceCharge}${attendantMd}${createdDateMd}${statementIDMd}${receiverNameMd}${receiverPhoneMd}${receiverAdressMd}${remarkMd}{w:auto}\n-\n ^${cuHeader}\n\n${invoiceType}\n\n{code:${qrCode}; option:qrcode,8,M}\n\n${cuSerialNo}\n${cuInvoiceNo}\n-\n\n`
 
   return HEADER + SUB_HEADER + FOOD_TABLE + FOOTER
 }
