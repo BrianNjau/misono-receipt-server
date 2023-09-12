@@ -304,7 +304,16 @@ export const buildOrder = (orderCustomContent) => {
     SUB_HEADER = `"^DELIVERY\n-\n`
   }
 
-  const FOOD_TABLE = `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
+  const myFood = []
+  orderCustomContent.map(( a => myFood.push({
+   name: a.food.name,
+   num: n(a.food.num),
+ })))
+
+
+  const FOOD_TABLE = `{w:10,*}\n|Name | Qty |\n-\n${myFood.map(({ name, num }) => `|^${name} | ^${num} | \n{w:auto}\n-\n`).toString().replaceAll(',',"")}`
+  
+ // `{w:6,*}\n|Qty |Name |\n-\n|^^^${food.num} |^^^${food.name} |${food.modifier ? `\n||^^^[${food.modifier}] |` : ''}\n{w:auto}\n-\n`
 
   const statementIDMd = statementID ? `Order No.: |${statementID}\n` : ''
   const attendantMd = attendant ? `Attendant: |${escapeChars(attendant)}\n` : ''
