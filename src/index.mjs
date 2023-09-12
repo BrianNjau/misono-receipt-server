@@ -163,7 +163,7 @@ try {
                   ping.sys.probe(ip, async function (isAlive) {
                     if (!isAlive) handler('1', `${printType}|Print to Network failed: ip:${ip} failed to connect.`)
                     else {
-                      const commands = chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n')
+                      const commands = print(buildOrder(chefContent),`-l zh -p generic`)
                       await print(commands, `-d ${ip} -l zh -p generic`)
                       handler('0', `${printType}|Print to Network:${ip} success.`)
                     }
@@ -172,7 +172,7 @@ try {
               } else if (hardwareType === 'USB') {
                 if (!hasUsbPrinters) handler('1', `${printType}|Print to USB:[${vid};${pid}] failed: USB Printers Not Found`)
                 else {
-                  const commands = await print(chefContent.map((orderCustomContent) => buildOrder(orderCustomContent)).join('=\n'), `-l zh -p generic`)
+                  const commands = await print(buildOrder(chefContent), `-l zh -p generic`)
                   const device = new USB(vid, pid)
                   device.open((err) => {
                     if (err) handler('1', `${printType}|Print to USB:[${vid};${pid}] failed: USB device open failed: ${err}`)
