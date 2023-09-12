@@ -289,7 +289,7 @@ ${normalizedFoodList.map(({ name, modifier, num, price }) => `|${name} |\n${modi
  * @param {OrderCustomContent} orderCustomContent
  */
 export const buildOrder = (orderCustomContent) => {
-  const { isDelivery, takeawayNo, tableCode, food, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent
+  const { isDelivery, takeawayNo, tableCode, attendant, createdDate, statementID, receiverName, remark } = orderCustomContent[0]
   const isTakeaway = !!takeawayNo
 
   let SUB_HEADER = ''
